@@ -1,9 +1,9 @@
 ---
-name: git-workflow-manager
+name: dev-flow
 description: Handles the full Git lifecycle — creating branches and pushing code safely. Integrates with agile-harness MCP to create Historias de Usuario (HU) and branches in one step. Automates branch creation following GitHub Flow (default), TBD, or Git Flow conventions. Also manages safe push with conflict validation (dry-run merge local), toolchain detection (lint/format/test), and optional PR creation. Use this skill whenever the user asks to "crear HU", "crear branch para HU", "empezar a trabajar en una historia", or wants to push code ("push seguro", "validar antes de push", "crear PR"). When talking about features, bugs, or tasks, prefer using this skill to create HUs first and then branches. Handles GitHub Flow (branches cortas, PR + review — default), TBD (Google/Meta/Netflix), and Git Flow (Linux Kernel/Hashicorp).
 ---
 
-# git-workflow-manager
+# dev-flow
 
 This skill manages the complete Git lifecycle for the project. It has three modes:
 

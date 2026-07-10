@@ -1,6 +1,6 @@
 ---
 name: daily-init
-description: Single entry point for daily work sessions. Checks environment health (blocking if MCPs or dependencies are missing), recaps session state (branch, HU, last commit), detects pending items and breaches via heuristics, and presents an action menu that delegates to other skills. Use this skill at the START OF EVERY SESSION or whenever the user greets you ("hola", "buenos días", "empecemos", "qué hay pendiente", "qué hago hoy", "cómo vamos", "estado del proyecto"). It orchestrates git-workflow-manager for branches and push, project-context-kit for docs, and the agile-harness MCP for HU management. Do NOT wait for the user to ask — if they say hello or any greeting, run this skill proactively.
+description: Single entry point for daily work sessions. Checks environment health (blocking if MCPs or dependencies are missing), recaps session state (branch, HU, last commit), detects pending items and breaches via heuristics, and presents an action menu that delegates to other skills. Use this skill at the START OF EVERY SESSION or whenever the user greets you ("hola", "buenos días", "empecemos", "qué hay pendiente", "qué hago hoy", "cómo vamos", "estado del proyecto"). It orchestrates dev-flow for branches and push, technical-writer for docs, and the agile-harness MCP for HU management. Do NOT wait for the user to ask — if they say hello or any greeting, run this skill proactively.
 ---
 
 # daily-init
@@ -32,8 +32,8 @@ Check each dependency. If any is missing, show installation instructions and STO
 
 #### 1d. Required Skills
 - Check if the following skill directories exist:
-  - `git-workflow-manager` (in the configured skills path)
-  - `project-context-kit`
+  - `dev-flow` (in the configured skills path)
+  - `technical-writer`
 - If any missing: "Skill {name} no encontrado. Asegúrate de que esté instalado en la ruta de skills."
 
 **If any check fails, show ALL failures at once** (not one by one) so the user can fix everything at once, then STOP.
@@ -104,7 +104,7 @@ Run the following checks in parallel. Each check is a **suggestion**, not a comm
 #### 4e. Docs staleness
 - Check `AGENTS.md`, `docs/` modification dates: `git log -1 --format=%ci AGENTS.md`
 - Compare with last code commit: `git log -1 --format=%ci`
-- If docs older than last code commit by > 7 days: "AGENTS.md no se actualiza desde hace {X} días. Sugerir ejecutar project-context-kit."
+- If docs older than last code commit by > 7 days: "AGENTS.md no se actualiza desde hace {X} días. Sugerir ejecutar technical-writer."
 - Also check if docs exist at all
 
 ### 5. Action Menu
@@ -115,10 +115,10 @@ Present a numbered menu. Each option delegates to another skill or runs a git co
 🎯 ¿Qué hacemos hoy?
 
 [1] Continuar HU-42 — checkout a 42-add-jwt-auth + mostrar diff
-[2] Iniciar HU nueva → git-workflow-manager (Crear HU + branch)
-[3] Iniciar HU existente → git-workflow-manager (Branch desde HU)
-[4] Push seguro → git-workflow-manager (Push seguro)
-[5] Update docs → project-context-kit
+[2] Iniciar HU nueva → dev-flow (Crear HU + branch)
+[3] Iniciar HU existente → dev-flow (Branch desde HU)
+[4] Push seguro → dev-flow (Push seguro)
+[5] Update docs → technical-writer
 [6] Fix breaches — acciones sugeridas para cada breach detectado
 [7] Salir — no hacer nada
 ```
@@ -128,10 +128,10 @@ Present a numbered menu. Each option delegates to another skill or runs a git co
 | Option | Action |
 |---|---|
 | 1 | `git checkout {branch}`, then show `git diff --stat origin/{default}..HEAD` |
-| 2 | Delegate to `git-workflow-manager` mode "Crear HU + branch" |
-| 3 | Delegate to `git-workflow-manager` mode "Branch desde HU existente" |
-| 4 | Delegate to `git-workflow-manager` mode "Push seguro" |
-| 5 | Delegate to `project-context-kit` |
+| 2 | Delegate to `dev-flow` mode "Crear HU + branch" |
+| 3 | Delegate to `dev-flow` mode "Branch desde HU existente" |
+| 4 | Delegate to `dev-flow` mode "Push seguro" |
+| 5 | Delegate to `technical-writer` |
 | 6 | For each breach, show the specific command to fix it (e.g., `touch tests/auth/login.test.ts`, `git branch -D stale-branch`, `git add -A && git commit`, `cp .env.example .env`) |
 | 7 | "OK, avísame si necesitas algo." |
 

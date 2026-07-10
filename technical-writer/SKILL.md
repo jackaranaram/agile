@@ -1,9 +1,9 @@
 ---
-name: project-context-kit
+name: technical-writer
 description: Orchestrates the creation and maintenance of a complete project context suite for AI agents and human developers. Analyzes the project stack, structure, and dependencies to generate up to 9 context files: docs/ARCHITECTURE.md, docs/CONTRACTS.md, docs/DATABASE.md, docs/MODEL.md, docs/ROADMAP.md, docs/SCOPE.md (technical docs for humans), AGENTS.md (AI behavior rules at project root), README.md (professional project readme at root), and DESIGN.md (visual tokens at root, for frontend projects). Use this skill whenever the user asks to generate or update documentation, initialize a project for AI agents, set up project context, create or update README.md, or create AGENTS.md, ARCHITECTURE.md, DESIGN.md, or any of the 6 doc files. Also triggers when the user mentions "context", "documentation suite", "project setup for AI", "readme generator", or "update docs". Handles both init (from scratch) and update (detects existing files, regenerates them, commits changes).
 ---
 
-# project-context-kit
+# technical-writer
 
 This skill analyzes a project and generates a complete context suite. It consolidates what were previously separate skills (docs-suite-creator for human docs, ai-rules-generator for AI rules, generate-readme for professional README, design-md-spec for design tokens) into a single entry point that shares one project analysis phase.
 
@@ -126,7 +126,7 @@ When generating `AGENTS.md`, append this section at the end:
 
 Si durante tu interacción detectas cambios significativos en el proyecto
 (nuevas dependencias, cambios arquitectónicos, nuevos endpoints o schemas):
-**informa al usuario y sugiere ejecutar el skill `project-context-kit`**
+**informa al usuario y sugiere ejecutar el skill `technical-writer`**
 para sincronizar la documentación con el estado actual del proyecto.
 ```
 

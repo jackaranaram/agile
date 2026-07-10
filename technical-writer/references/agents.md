@@ -33,7 +33,7 @@ Usa esta plantilla cuando el usuario solicite crear o actualizar `AGENTS.md` en 
 - **Ramas desde**: {main | develop}
 - **Convención de nombres**: {feat/{desc} | {issue}-{desc} | feature/{desc}}
 - **Merge a**: {main | develop}
-- **Para crear una rama nueva**, ejecuta la skill `git-workflow-manager`
+- **Para crear una rama nueva**, ejecuta la skill `dev-flow`
 - **Test Runner**: [Jest, Vitest, pytest]
 - **Commits**: [Conventional Commits]
 - **CI/CD**: [GitHub Actions, etc.]
@@ -55,7 +55,7 @@ Si necesitas detalles sobre arquitectura, endpoints, o schemas de DB, consulta e
 
 Si durante tu interacción detectas cambios significativos en el proyecto
 (nuevas dependencias, cambios arquitectónicos, nuevos endpoints o schemas):
-**informa al usuario y sugiere ejecutar el skill `project-context-kit`**
+**informa al usuario y sugiere ejecutar el skill `technical-writer`**
 para sincronizar la documentación con el estado actual del proyecto.
 ```
 
