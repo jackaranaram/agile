@@ -108,7 +108,7 @@ Audit Report — jackaranaram/agile-harness
 Score: 9/10 (90%) [3 Excluidos] — Professional Baseline: 10/13 ⚠️
 ```
 
-Save the full report as `{project-root}/.audit-report.md` for reference.
+Save the full report as `{project-root}/.audit-report.md` for reference. When generating the report, check if `.audit-report.md` is listed in the project's `.gitignore` file. If it is not, automatically append `.audit-report.md` (preceded by a `# project audit report` comment) to `.gitignore` to prevent checking it into the repository.
 
 #### 4b. Fix Mode
 
