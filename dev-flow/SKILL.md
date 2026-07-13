@@ -9,7 +9,7 @@ This skill manages the complete Git lifecycle for the project. It has three mode
 
 - **Crear HU + branch** — crea una Historia de Usuario via MCP y luego la rama para implementarla
 - **Branch desde HU existente** — obtiene los detalles de una HU existente via MCP y crea la rama
-- **Push seguro** — valida conflictos, corre tests, push y PR
+- **Listo para Review** — valida conflictos, ejecuta pruebas, pushea cambios y marca el PR como listo para revisión
 
 ---
 
@@ -42,7 +42,7 @@ Present the action menu:
 
 [ ] Crear HU + branch — crea la HU y la rama en un solo paso
 [ ] Branch desde HU existente — ej: "HU-42", "issue 42"
-[ ] Push seguro — validar, mergear localmente y pushear
+[ ] Listo para Review — validar conflictos, testear, push y publicar PR
 
 Describe el contexto o task:
 ___________________________________________________________
@@ -64,10 +64,12 @@ Workflow por defecto: GitHub Flow (Enter para confirmar)
 
 #### 4a. Crear HU + branch
 
-1. **Crear HU via MCP:**
-   - Usar el contexto del usuario para llamar a `create_epic` (o la herramienta MCP equivalente para crear HU)
-   - Extraer de la respuesta: `{huId}`, `{huTitle}`, `{huType}` (feat/fix/docs/chore)
-   - Si el MCP devuelve un formato diferente, mapear los campos relevantes
+1. **Descubrir Épicas y Crear HU via MCP:**
+   - **IMPORTANTE:** Antes de redactar o aplicar un plan ágil de HUs, ejecutar obligatoriamente `fetch_existing_epics` para listar el roadmap y las épicas (milestones) existentes en el repositorio.
+   - Preguntar al usuario si desea asociar las HUs a alguna de estas épicas existentes o si de verdad necesita crear una nueva.
+   - Si se asocia a una existente: Configurar el campo `targetMilestone` en el payload de `stage_agile_plan` con el número del milestone de esa épica.
+   - Usar el contexto y el plan ágil aprobado para llamar a `apply_agile_plan` (o la herramienta MCP equivalente).
+   - Extraer de la respuesta: `{huId}`, `{huTitle}`, `{huType}` (feat/fix/docs/chore).
 
 2. **Crear branch, push inicial y Draft PR:**
    - Cargar la reference del workflow seleccionado.
@@ -99,20 +101,20 @@ Workflow por defecto: GitHub Flow (Enter para confirmar)
 
 3. **Summary:** "Branch 42-add-jwt-auth creada y subida para HU-42. Draft PR #15 abierto para iniciar CI/CD."
 
-#### 4c. Push seguro
+#### 4c. Listo para Review
 
 - `develop` exists + current branch is `feature/*`/`bugfix/*` → target `develop`
 - `develop` exists + current branch is `release/*`/`hotfix/*` → target `main`
 - Otherwise → target = default branch (main/master)
 - Show detected target and ask confirmation
-- Load `references/safe-push.md` and execute
+- Load `references/ready-for-review.md` and execute
 
 ### 5. Summary
 
 After completion, provide a brief summary:
 
-| Mode              | Example summary                                                                      |
-| ----------------- | ------------------------------------------------------------------------------------ |
-| Crear HU + branch | "HU-42 creada: Agregar login con JWT. Branch 42-add-jwt-auth creada desde master."   |
-| Branch desde HU   | "Branch 42-add-jwt-auth creada desde master para HU-42."                             |
-| Push seguro       | "Merge local contra master sin conflictos. Validaciones OK. Pusheé 42-add-jwt-auth." |
+| Mode              | Example summary                                                                                       |
+| ----------------- | ----------------------------------------------------------------------------------------------------- |
+| Crear HU + branch | "HU-42 creada. Branch 42-add-jwt-auth creada y subida. Draft PR #15 abierto para iniciar CI/CD."      |
+| Branch desde HU   | "Branch 42-add-jwt-auth creada y subida para HU-42. Draft PR #15 abierto para iniciar CI/CD."         |
+| Listo para Review | "Validaciones OK. Sin conflictos locales contra main. PR #15 publicado (Ready for review)."          |
